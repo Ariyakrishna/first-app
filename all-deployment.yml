@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: all-deployment
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: all
+  template:
+    metadata:
+      labels:
+        app: all
+    spec:
+      containers:
+        - name: front
+          image: ariyakrishnan/kube-front:latest
+          env:
+            - name: BACKEND_ADDRESS
+              # value: "10.99.104.252"
+              value: localhost 
+        - name: back 
+          image: ariyakrishnan/kube-back:latest
+        - name: db
+          image: mongo:latest
+
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  name: all-service
+spec:
+  selector:
+    app: all
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
