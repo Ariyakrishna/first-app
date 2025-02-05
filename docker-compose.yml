@@ -2,6 +2,8 @@ version: '3.8'
 services:
   frontend:
     build: ./react-frontend
+    image: three-tier-react-image
+    container_name: three-tier-frontend-con
     ports:
       - "80:80"
     depends_on:
@@ -11,6 +13,8 @@ services:
 
   backend:
     build: ./backend
+    image: three-tier-backend-image
+    container_name: three-tier-backend-con
     ports:
       - "5000:5000"
     depends_on:
@@ -19,6 +23,7 @@ services:
 
   mongo:
     image: mongo:latest
+    container_name: three-tier-mongo-con
     ports:
       - "27017:27017"
     volumes:
