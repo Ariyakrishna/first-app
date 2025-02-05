@@ -23,7 +23,7 @@ services:
 
   mongo:
     image: mongo:latest
-    container_name: three-tier-mongo-con
+    container_name: mongo-con
     ports:
       - "27017:27017"
     volumes:

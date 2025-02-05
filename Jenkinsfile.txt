@@ -1,0 +1,37 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello World'
+                checkout changelog: false, poll: false, scm: scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Ariyakrishna/first-app.git']])
+                
+            }
+        }
+        
+        
+        stage('remove existing docker container and image'){
+            steps{
+                
+        bat 'docker stop three-tier-frontend-con ||  docker rm three-tier-frontend-con ||  docker rmi three-tier-react-image '
+        
+        bat 'docker stop three-tier-backend-con ||   docker rm three-tier-backend-con ||   docker rmi three-tier-backend-image '
+        
+        bat 'docker stop three-tier-mongo-con ||   docker rm three-tier-mongo-con ||  docker rmi mongo'
+
+
+    
+
+            }
+            
+        }
+        
+        stage('Docker Deployment'){
+            steps{
+                bat "docker-compose -f ${env.WORKSPACE}/docker-compose.yml up --build -d"            
+                
+                }
+        }
+    }
+}
