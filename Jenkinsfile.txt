@@ -18,7 +18,6 @@ pipeline {
         
         bat 'docker stop three-tier-backend-con ||   docker rm three-tier-backend-con ||   docker rmi three-tier-backend-image '
         
-        bat 'docker stop three-tier-mongo-con ||   docker rm three-tier-mongo-con ||  docker rmi mongo'
 
 
     
