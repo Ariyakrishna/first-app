@@ -3,28 +3,15 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 14  # You can change the Node.js version if needed
+      nodejs: 14  # or your runtime
     commands:
-      - echo Installing npm dependencies...
+      - echo Installing dependencies...
       - npm install
-
   build:
     commands:
-      - echo Building the project...
-      - npm run build  # This assumes you have a build script in package.json
-
-  post_build:
-    commands:
-      - echo Build completed, preparing for artifact upload...
-      - echo Uploading build to S3...
-      - aws s3 cp build/ s3://aws-code-bucket-for-code-build/Reactbuild/ --recursive  # Upload to the Reactbuild directory
-
+      - echo Build started on `date`
+      - npm run build
 artifacts:
   files:
-    - '**/*'  # Optionally specify the files to be included in the artifact
-  discard-paths: yes
-  base-directory: build  # Ensures only files in the 'build' directory are uploaded
-
-cache:
-  paths:
-    - 'node_modules/**/*'  # Caching node_modules to speed up subsequent builds
+    - '**/*'
+  base-directory: dist  # Or your output folder
