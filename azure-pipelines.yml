@@ -21,12 +21,7 @@ steps:
 
   
 
-  - task: PublishBuildArtifacts@1
-    inputs:
-      pathToPublish: '$(Build.ArtifactStagingDirectory)'
-      artifactName: '$(artifactName)'
-      publishLocation: 'Container'
-    displayName: 'Publish Build Artifacts'
+  
 
   - task: CopyFiles@2
     inputs:
@@ -34,3 +29,10 @@ steps:
       Contents: '**'
       TargetFolder: '$(Build.ArtifactStagingDirectory)'
     displayName: 'Copy Build Output to Staging Directory'
+    
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: '$(Build.ArtifactStagingDirectory)'
+      artifactName: '$(artifactName)'
+      publishLocation: 'Container'
+    displayName: 'Publish Build Artifacts'
