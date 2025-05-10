@@ -1,3 +1,3 @@
 #!/bin/bash
-echo "Starting the web server"
-sudo systemctl start nginx
+echo "Running AfterInstall script"
+sudo systemctl restart nginx
