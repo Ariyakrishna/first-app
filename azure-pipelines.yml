@@ -19,12 +19,18 @@ steps:
       npm run build
     displayName: 'Install Dependencies and Build'
 
-  - task: PublishBuildArtifacts@1
+  - script: |
+      echo "Listing contents of the build directory:"
+      ls -al $(System.DefaultWorkingDirectory)/$(buildDir)
+    displayName: 'List Build Output Directory Contents'
+
+  - task: CopyFiles@2
     inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-      ArtifactName: 'artifactbuild'
-      publishLocation: 'Container'
-    
+      SourceFolder: '$(System.DefaultWorkingDirectory)/$(buildDir)'
+      Contents: '**'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    displayName: 'Copy Build Output to Artifact Staging Directory'
+
   - task: PublishBuildArtifacts@1
     inputs:
       pathToPublish: '$(Build.ArtifactStagingDirectory)'
