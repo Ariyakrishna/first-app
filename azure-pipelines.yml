@@ -2,10 +2,10 @@ trigger:
   - main
 
 pool:
-  name: 'self-hosted'
+  name: 'SelfHostedLocal'
 
 variables:
-  buildDir: 'Ariyakrishna/build'
+  buildDir: 'build'
   artifactName: 'react-app-build'
 
 steps:
@@ -15,18 +15,21 @@ steps:
     displayName: 'Install Node.js'
 
   - script: |
-      cd Ariyakrishna
       npm install
       npm run build
-    displayName: 'Install Dependencies and Build React App'
+    displayName: 'Install Dependencies and Build'
+
+  
+
+  
 
   - task: CopyFiles@2
     inputs:
       SourceFolder: '$(System.DefaultWorkingDirectory)/$(buildDir)'
       Contents: '**'
       TargetFolder: '$(Build.ArtifactStagingDirectory)'
-    displayName: 'Copy Build Output to Artifact Staging Directory'
-
+    displayName: 'Copy Build Output to Staging Directory'
+    
   - task: PublishBuildArtifacts@1
     inputs:
       pathToPublish: '$(Build.ArtifactStagingDirectory)'
