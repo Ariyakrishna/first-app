@@ -16,8 +16,11 @@ steps:
 
   - script: |
       npm install
-      npm run build
-    displayName: 'Install Dependencies and Build React App'
+    displayName: 'Install Dependencies '
+
+  - script: |
+     npm run build
+    displayName: ' Build React App'
 
   - script: |
       echo "Checking if build directory exists..."
