@@ -20,10 +20,10 @@ steps:
       echo "NPM version:"
       npm -v
       echo "Current working directory:"
-       cd
+      cd
 
       echo "Listing contents of current directory:"
-       dir
+      dir
 
       echo "Installing dependencies..."
       npm install
