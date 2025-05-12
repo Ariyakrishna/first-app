@@ -19,6 +19,11 @@ steps:
       node -v
       echo "NPM version:"
       npm -v
+      echo "Current working directory:"
+       cd
+
+      echo "Listing contents of current directory:"
+       dir
 
       echo "Installing dependencies..."
       npm install
