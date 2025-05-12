@@ -5,7 +5,7 @@ pool:
   name: 'self-hosted'
 
 variables:
-  buildDir: 'build'
+  buildDir: 'Ariyakrishna/build'
   artifactName: 'react-app-build'
 
 steps:
@@ -15,14 +15,15 @@ steps:
     displayName: 'Install Node.js'
 
   - script: |
+      cd Ariyakrishna
       npm install
       npm run build
-    displayName: 'Install Dependencies and Build'
+    displayName: 'Install Dependencies and Build React App'
 
   - script: |
-      echo "Listing contents of the build directory:"
+      echo "Checking build output..."
       ls -al $(System.DefaultWorkingDirectory)/$(buildDir)
-    displayName: 'List Build Output Directory Contents'
+    displayName: 'List Build Folder Contents'
 
   - task: CopyFiles@2
     inputs:
