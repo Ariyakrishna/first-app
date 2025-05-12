@@ -15,13 +15,11 @@ steps:
     displayName: 'Install Node.js'
 
   - script: |
-      npm run build
+       npm install
+       npm run build
     displayName: 'Install Dependencies and Build'
 
   
-
-  
-
   - task: CopyFiles@2
     inputs:
       SourceFolder: '$(System.DefaultWorkingDirectory)/$(buildDir)'
