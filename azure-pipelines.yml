@@ -15,18 +15,34 @@ steps:
     displayName: 'Install Node.js'
 
   - script: |
-       npm install
-       npm run build
-    displayName: 'Install Dependencies and Build'
+      echo "Node version:"
+      node -v
+      echo "NPM version:"
+      npm -v
 
-  
+      echo "Installing dependencies..."
+      npm install
+
+      echo "Running build..."
+      npm run build || exit /b 1
+
+      echo "Build directory contents:"
+      if exist "$(buildDir)" (
+        echo "Build directory found!"
+        dir "$(buildDir)"
+      ) else (
+        echo "Build directory NOT found!"
+        exit /b 1
+      )
+    displayName: 'Install Dependencies and Build React App (with Debugging)'
+
   - task: CopyFiles@2
     inputs:
       SourceFolder: '$(System.DefaultWorkingDirectory)/$(buildDir)'
       Contents: '**'
       TargetFolder: '$(Build.ArtifactStagingDirectory)'
     displayName: 'Copy Build Output to Staging Directory'
-    
+
   - task: PublishBuildArtifacts@1
     inputs:
       pathToPublish: '$(Build.ArtifactStagingDirectory)'
