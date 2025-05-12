@@ -19,16 +19,11 @@ steps:
       npm run build
     displayName: 'Install Dependencies and Build'
 
-  
-
-  
-
-  - task: CopyFiles@2
+  - task: PublishBuildArtifacts@1
     inputs:
-      SourceFolder: '$(System.DefaultWorkingDirectory)/$(buildDir)'
-      Contents: '**'
-      TargetFolder: '$(Build.ArtifactStagingDirectory)'
-    displayName: 'Copy Build Output to Staging Directory'
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'artifactbuild'
+      publishLocation: 'Container'
     
   - task: PublishBuildArtifacts@1
     inputs:
