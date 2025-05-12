@@ -15,38 +15,27 @@ steps:
     displayName: 'Install Node.js'
 
   - script: |
-      echo "Node version:"
-      node -v
-      echo "NPM version:"
-      npm -v
-      echo "Current working directory:"
-      cd
-
-      echo "Listing contents of current directory:"
-      dir
-
-      echo "Installing dependencies..."
       npm install
+      npm run build
+    displayName: 'Install Dependencies and Build React App'
 
-      echo "Running build..."
-      npm run build || exit /b 1
-
-      echo "Build directory contents:"
-      if exist "$(buildDir)" (
+  - script: |
+      echo "Checking if build directory exists..."
+      if exist "$(System.DefaultWorkingDirectory)\$(buildDir)" (
         echo "Build directory found!"
-        dir "$(buildDir)"
+        dir "$(System.DefaultWorkingDirectory)\$(buildDir)"
       ) else (
         echo "Build directory NOT found!"
         exit /b 1
       )
-    displayName: 'Install Dependencies and Build React App (with Debugging)'
+    displayName: 'Verify Build Directory'
 
   - task: CopyFiles@2
     inputs:
       SourceFolder: '$(System.DefaultWorkingDirectory)/$(buildDir)'
       Contents: '**'
       TargetFolder: '$(Build.ArtifactStagingDirectory)'
-    displayName: 'Copy Build Output to Staging Directory'
+    displayName: 'Copy Build Output to Artifact Staging Directory'
 
   - task: PublishBuildArtifacts@1
     inputs:
