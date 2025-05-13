@@ -46,3 +46,11 @@ steps:
       artifactName: '$(artifactName)'
       publishLocation: 'Container'
     displayName: 'Publish Build Artifacts'
+
+  - task: Npm@1
+    inputs:
+      command: 'publish'
+      workingDir: '$(System.DefaultWorkingDirectory)'
+      publishRegistry: 'useFeed'
+      publishFeed: 'BHDevopsProject/AzureReactDemo'  # Replace with actual feed
+    displayName: 'Publish npm Package to Azure Artifacts Feed'
