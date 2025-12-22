@@ -21,7 +21,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>Welcome to My Web Page</h1>
-        <p>This is a simple Reactttttttttttttttttttt app with a counter and input field.</p>
+        <p>This is a simple REACT_CHANGES app with a counter and input field.</p>
       </header>
       
       <main>
